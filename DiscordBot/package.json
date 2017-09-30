@@ -1,0 +1,31 @@
+{
+  "name": "toastec_bot_discord",
+  "version": "1.0.1",
+  "description": "A bot to help with ToasTec's Discord server and Dual Universe Functions.",
+  "main": "Artemis.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Astral",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.5.0",
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.18.2",
+    "common-tags": "^1.4.0",
+    "discord.js": "^11.2.1",
+    "discord.js-commando": "^0.9.0",
+    "express": "^4.15.5",
+    "express-html": "^1.0.1",
+    "express-oauth-server": "^2.0.0",
+    "express-session": "^1.15.6",
+    "expressjs": "^1.0.1",
+    "formidable": "^1.1.1",
+    "fs": "0.0.1-security",
+    "mysql2": "^1.4.2",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "mysql-osquery-proxy": "^1.0.0"
+  }
+}
