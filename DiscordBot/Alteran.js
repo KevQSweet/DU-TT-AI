@@ -14,6 +14,7 @@ const config = require('./config.json'),
 	events = require('events'),
 	formidable = require('formidable'),
 	dgram = require('dgram'),
+	crypto = require('crypto'),
 	dns = require('dns'),
 	tls = require('tls'),
 	net = require('net'),
@@ -45,6 +46,7 @@ const config = require('./config.json'),
 		disableEveryone: true,
 		
 	}),
+	eAdmin = express(),
 	model = {
 		getAccessToken: function() {
 			return new Promise('Authenticated!');
@@ -60,6 +62,10 @@ const config = require('./config.json'),
     // Libraries and configs
 
 bPromise.promisifyAll([commandoClient, fs, html, session, OAuthServer, bodyParser, tls, express, path]);	
+
+
+
+
 
 
 	
@@ -168,8 +174,31 @@ eApp.get('/UI', function(req,res,html) {
 eApp.get('/Audio', function(req,res,html) {
 	res.sendFile(path.join(__dirname + '/www/Audio'));
 });
+//
+//
+//
+// Bind 
+eAdmin.get('/'), function (req, res) {
+	console.log(admin.mountpath);
+	res.send('Admin Web Panel');
+});
+
+eApp.use('/', express.static(path.join('./www', './www')));
+eApp.use("./www/Dashboard", express.static(path.join('./www/Dashboard', './www/Dashboard')));
+
+eApp.use('/Web/Dash/Artemis', express.static('Artemis'));
 
 eApp.use(express.static('./www'));
+// End Bind
+
+// Error 404
+app.use(function (req, res, next) {
+	res.status(404).send("Error page not found, To Fix please head to nearest airlock!")
+});
+// Error 404
+
+
+
 
 commandoClient.on('ready', () => {
 	commandoClient.user.setPresence({ game: {name: 'Dual Universe ToasTec', type: 1 } });
