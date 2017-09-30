@@ -225,15 +225,15 @@ commandoClient.login(config.Commando.Token);
 
 
 // embed
-const embed = new Discord.RichEmbed()
-	.setTitle("ToasTec Status")
-	.setColor("3447003")
-	.setDescription("Dual Universe ToasTec, [Dashboard](config.Discord.DashboardUrl) !")
-	.setFooter("Click the above link for the dashboard, User authetication required")
-	.setTimestamp()
-	.addField("This is a test")
-	.addField("This is also a test", true)
-	.addBlankField(true);
+//const embed = new Discord.RichEmbed()
+	//.setTitle("ToasTec Status")
+	//.setColor("3447003")
+	//.setDescription("Dual Universe ToasTec, [Dashboard](config.Discord.DashboardUrl) !")
+	//.setFooter("Click the above link for the dashboard, User authetication required")
+	//.setTimestamp()
+	//.addField("This is a test")
+	//.addField("This is also a test", true)
+	//.addBlankField(true);
 // embed end
 
 
@@ -249,7 +249,7 @@ DiscordClient.on('message', (message) => {
 	if (message.content.startsWith(config.Discord.prefix + "Dashboard")) {
 		message.delete()
 		message.channel.send({embed: {
-			color: 10751,
+			color: "3447003",
 			title: "ToasTec Status",
 			description: "Welcome to Dual Universe ToasTec!",
 			fields: [{
