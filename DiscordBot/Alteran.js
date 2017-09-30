@@ -246,15 +246,20 @@ DiscordClient.on('message', (message) => {
 	if (message.content.startsWith(config.Discord.prefix + "Avatar")) {
 	message.channel.send(message.author.avatarURL);
 	} else
+	if (message.content.startsWith(config.Discord.prefix + "pb")) {
+		message.delete()
+		message.channel.send("!giveaway");
+	} else
 	if (message.content.startsWith(config.Discord.prefix + "Dashboard")) {
 		message.delete()
+		message.channel.send("I'm currently sitting in "+DiscordClient.guilds.size+" servers");
 		message.channel.send({embed: {
 			color: "3447003",
 			title: "ToasTec Status",
 			description: "Welcome to Dual Universe ToasTec!",
 			fields: [{
 				name: "ToasTec Dashboard",
-				value: "Dual Universe ToasTec, [Dashboard](config.Discord.DashboardUrl) !"
+				value: "Dual Universe ToasTec, [Dashboard](" + config.Commando.DashboardUrl + ") !"
 			}],
 		}
 	})
