@@ -41,12 +41,10 @@ const config = require('./config.json'),
 	mysql = require('mysql2'),
 	poolCluster = mysql.createPoolCluster();
 	commandoClient = new Commando.Client({
-		owner: '247176974164819968','132273652266827776',
+		owner: '247176974164819968',
 		commandPrefix: '[]',
 		disableEveryone: true,
-		
 	}),
-	eAdmin = express(),
 	model = {
 		getAccessToken: function() {
 			return new Promise('Authenticated!');
@@ -176,10 +174,8 @@ eApp.get('/Audio', function(req,res,html) {
 //
 //
 // Bind 
-eAdmin.get('/'), function (req, res) {
-	console.log(admin.mountpath);
-	res.send('Admin Web Panel');
-});
+
+eApp.use('/Web/Dash/admin', eAdmin);
 
 eApp.use('/', express.static(path.join('./www', './www')));
 eApp.use("./www/Dashboard", express.static(path.join('./www/Dashboard', './www/Dashboard')));
@@ -190,7 +186,7 @@ eApp.use(express.static('./www'));
 // End Bind
 
 // Error 404
-app.use(function (req, res, next) {
+eApp.use(function (req, res, next) {
 	res.status(404).send("Error page not found, To Fix please head to nearest airlock!")
 });
 // Error 404
@@ -251,20 +247,19 @@ DiscordClient.on('message', (message) => {
 	message.channel.send(message.author.avatarURL);
 	} else
 	if (message.content.startsWith(config.Discord.prefix + "Dashboard")) {
-	message.channel.send({embed: {
-		title: "ToasTec Status",
-		description: "Dual Universe ToasTec, [Dashboard](config.Discord.DashboardUrl) !",
+		message.delete()
+		message.channel.send({embed: {
+			color: 10751,
+			title: "ToasTec Status",
+			description: "Welcome to Dual Universe ToasTec!",
 			fields: [{
-				name: "Test",
-				value: "This is a test"
-			},
-			{
-				name: "Masked links",
-				value: "This is a test [ToasTec](config.Discord.DashboardUrl) !"
-  }
-});
-	};
-});
+				name: "ToasTec Dashboard",
+				value: "Dual Universe ToasTec, [Dashboard](config.Discord.DashboardUrl) !"
+			}],
+		}
+	})
+}});
+	
 
 console.log(DiscordClient);
 
