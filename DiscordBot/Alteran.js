@@ -40,8 +40,10 @@ const config = require('./config.json'),
 	mysql = require('mysql2'),
 	poolCluster = mysql.createPoolCluster();
 	commandoClient = new Commando.Client({
-		Owner: '247176974164819968',
-		commandPrefix: '[]'
+		owner: 'Astral#0524',
+		commandPrefix: '[]',
+		disableEveryone: true,
+		
 	}),
 	model = {
 		getAccessToken: function() {
@@ -193,15 +195,45 @@ commandoClient.on('ready', () => {
 DiscordClient.login(config.Discord.Token);
 commandoClient.login(config.Commando.Token);
 
+// embed
+const embed = new Discord.RichEmbed()
+	.setTitle("ToasTec Status")
+	.setColor("3447003")
+	.setDescription("Dual Universe ToasTec, [Dashboard](config.Discord.DashboardUrl) !")
+	.setFooter("Click the above link for the dashboard, User authetication required")
+	.setTimestamp()
+	.addField("This is a test")
+	.addField("This is also a test", true)
+	.addBlankField(true);
+// embed end
 
+
+
+// Message Handling for both bots V
 DiscordClient.on('message', (message) => {
 	if (!message.content.startsWith(config.Discord.prefix)) return;
 	if (!message.content.startsWith(config.Discord.prefix) || message.author.bot) return;
 	
 	if (message.content.startsWith(config.Discord.prefix + "Avatar")) {
 	message.channel.send(message.author.avatarURL);
-	}
+	} else
+	if (message.content.startsWith(config.Discord.prefix + "Dashboard")) {
+	message.channel.send({embed: {
+		title: "ToasTec Status",
+		description: "Dual Universe ToasTec, [Dashboard](config.Discord.DashboardUrl) !",
+			fields: [{
+				name: "Test",
+				value: "This is a test"
+			},
+			{
+				name: "Masked links",
+				value: "This is a test [ToasTec](config.Discord.DashboardUrl) !"
+  }
 });
+	};
+});
+
+console.log(DiscordClient);
 
 commandoClient.on('message', (message) => {
 	if (!message.content.startsWith(config.Commando.prefix)) return;
@@ -216,7 +248,7 @@ commandoClient.on('message', (message) => {
 		message.channel.send(server);
 	}
 });
-
+// Message Handling for both bots ^
 new Promise(() => { throw new Error('exception!'); });
 
 // Log Errors and warnings to console No need to change anything below..
