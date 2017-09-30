@@ -66,8 +66,6 @@ bPromise.promisifyAll([commandoClient, fs, html, session, OAuthServer, bodyParse
 
 
 
-
-
 	
 //remoteSQL = mysql.createConnection({
 //	user: config.clientSQL.Username, 
