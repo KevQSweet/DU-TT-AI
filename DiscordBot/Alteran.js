@@ -40,7 +40,7 @@ const config = require('./config.json'),
 	mysql = require('mysql2'),
 	poolCluster = mysql.createPoolCluster();
 	commandoClient = new Commando.Client({
-		owner: 'Astral#0524',
+		owner: '247176974164819968','132273652266827776',
 		commandPrefix: '[]',
 		disableEveryone: true,
 		
@@ -107,7 +107,7 @@ server.on('connection', function (conn) {
     conn.writeEof();
   });
 
-  var remote = mysql.createConnection({user: 'root', database: 'dbname', host:'Artemis.Athris.ml', password: 'secret', port: '37371'});
+  var remote = mysql.createConnection({user: config.SQL.User, database: config.SQL.Database, host:config.SQL.Host, password: config.SQL.Pass, port: config.SQL.Port});
 
   conn.on('query', function (sql) {
     console.log('proxying query:' + sql);
@@ -172,7 +172,7 @@ eApp.get('/Audio', function(req,res,html) {
 eApp.use(express.static('./www'));
 
 commandoClient.on('ready', () => {
-	commandoClient.user.setPresence({ game: {name: 'ToasTec', type: 1 } });
+	commandoClient.user.setPresence({ game: {name: 'Dual Universe ToasTec', type: 1 } });
 });
 
 DiscordClient.on('ready', () => {
@@ -183,6 +183,8 @@ DiscordClient.on('ready', () => {
 //commandoClient.setProvider(db => new RemoteSQL.
 // TBA
 
+
+// Alerts when logged in.
 DiscordClient.on('ready', () => {
   console.log(`Logged in as ${DiscordClient.user.tag}!`);
 });
@@ -190,10 +192,14 @@ DiscordClient.on('ready', () => {
 commandoClient.on('ready', () => {
   console.log(`Logged in as ${commandoClient.user.tag}!`);
 });
+// Alerts when logged in.
 
 
+// Login Bots with Tokens
 DiscordClient.login(config.Discord.Token);
 commandoClient.login(config.Commando.Token);
+// Login Bots with Tokens
+
 
 // embed
 const embed = new Discord.RichEmbed()
@@ -251,7 +257,7 @@ commandoClient.on('message', (message) => {
 // Message Handling for both bots ^
 new Promise(() => { throw new Error('exception!'); });
 
-// Log Errors and warnings to console No need to change anything below..
+// Log Errors and warnings to console No need to change anything below.. - Debug output for executed commands
 commandoClient
 	.on('error', console.error)
 	.on('warn', console.warn)
@@ -291,7 +297,7 @@ commandoClient
 			${guild ? `in guild ${guild.name} (${guild.id})` : 'globally'}.
 		`);
 	});
-// No need to change anything above this line..
+// No need to change anything above this line.. - Debug output for executed commands
 	
 	
 	
