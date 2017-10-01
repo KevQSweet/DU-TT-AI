@@ -249,6 +249,9 @@ DiscordClient.on('message', (message) => {
 	if (message.content.startsWith(config.Discord.prefix + "pb")) {
 		message.delete()
 		message.channel.send("!giveaway");
+	}else
+	if (message.content.startsWith(config.Discord.prefix + "Hi")) {
+		message.channel.send("Hello, Astrorian!");
 	} else
 	if (message.content.startsWith(config.Discord.prefix + "Dashboard")) {
 		message.delete()
@@ -265,6 +268,36 @@ DiscordClient.on('message', (message) => {
 	})
 }});
 	
+let points = JSON.parse(fs.readFileSync("./points.json", "utf8"));
+const prefix = "+";
+
+DiscordClient.on("message", message => {
+  if (!message.content.startsWith(prefix)) return;
+  if (message.author.bot) return;
+
+  if (!points[message.author.id]) points[message.author.id] = {
+    points: 0,
+    level: 0
+  };
+  let userData = points[message.author.id];
+  userData.points++;
+
+  let curLevel = Math.floor(0.1 * Math.sqrt(userData.points));
+  if (curLevel > userData.level) {
+    // Level up!
+    userData.level = curLevel;
+    message.reply(`You"ve leveled up to level **${curLevel}**! Ain"t that dandy?`);
+  }
+
+  if (message.content.startsWith(prefix + "level")) {
+    message.reply(`You are currently level ${userData.level}, with ${userData.points} points.`);
+  }
+  fs.writeFile("./points.json", JSON.stringify(points), (err) => {
+    if (err) console.error(err)
+  });
+
+});
+	
 
 console.log(DiscordClient);
 
@@ -272,9 +305,10 @@ commandoClient.on('message', (message) => {
 	if (!message.content.startsWith(config.Commando.prefix)) return;
 	if (!message.content.startsWith(config.Commando.prefix) || message.author.bot) return;
 	if (message.content.startsWith(config.Commando.prefix + "Kill")) {
-		commandoClient.destroy();
-		DiscordClient.destroy();
-		console.log('Discord Killed');
+		message.channel.send("No!!!!")
+		commandoClient.destroy()
+		DiscordClient.destroy()
+		console.log('Discord Killed')
 		process.exit();
 	} else 
     if (message.content.startsWith(config.Commando.prefix + "SQLPort")) {
