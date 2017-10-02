@@ -9,6 +9,7 @@
   "author": "Astral",
   "license": "ISC",
   "dependencies": {
+    "ajax": "0.0.4",
     "async": "^2.5.0",
     "bluebird": "^3.5.0",
     "body-parser": "^1.18.2",
@@ -22,6 +23,8 @@
     "expressjs": "^1.0.1",
     "formidable": "^1.1.1",
     "fs": "0.0.1-security",
+    "graphcommons": "^0.1.6",
+    "jquery": "^3.2.1",
     "mysql2": "^1.4.2",
     "passport-http": "^0.3.0",
     "path": "^0.12.7"

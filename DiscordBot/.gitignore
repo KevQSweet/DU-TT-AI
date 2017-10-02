@@ -11,6 +11,8 @@ yarn-error.log*
 config.json
 ArtemisKey.pem
 ArtemisCRT.pem
+Artemis.js
+test.js
 
 # Runtime data
 pids
