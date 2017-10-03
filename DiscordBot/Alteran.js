@@ -39,7 +39,7 @@ const config = require('./config.json'),
 	eventEmitter = new events.EventEmitter(),
 	cluster = require('cluster'),
 	mysql = require('mysql2'),
-	poolCluster = mysql.createPoolCluster();
+	poolCluster = mysql.createPoolCluster(),
 	commandoClient = new Commando.Client({
 		owner: '247176974164819968',
 		commandPrefix: '[]',
@@ -245,13 +245,6 @@ DiscordClient.on('message', (message) => {
 	
 	if (message.content.startsWith(config.Discord.prefix + "Avatar")) {
 	message.channel.send(message.author.avatarURL);
-	} else
-	if (message.content.startsWith(config.Discord.prefix + "pb")) {
-		message.delete()
-		message.channel.send("!giveaway");
-	}else
-	if (message.content.startsWith(config.Discord.prefix + "Hi")) {
-		message.channel.send("Hello, Astrorian!");
 	} else
 	if (message.content.startsWith(config.Discord.prefix + "Dashboard")) {
 		message.delete()
