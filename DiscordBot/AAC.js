@@ -2,6 +2,7 @@ const config = require('./config.json');
 const Commando = require('discord.js-commando');
 const oneLine = require('common-tags').oneLine;
 const async = require('async');
+const Probe = require('pmx').probe();
 const fs = require('fs');
 const events = require('events');
 const path = require('path');

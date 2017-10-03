@@ -1,5 +1,6 @@
 const url = require('url');
 const net = require('net');
+const Probe = require('pmx').probe();
 const tls = require('tls');
 const events = require('events');
 const fs = require('fs');
@@ -7,7 +8,7 @@ const formidable = require('formidable');
 const mysql = require('mysql2');
 const poolCluster = mysql.createPoolCluster();
 const config = require('./config.json');
-const metric = probe.metric({
+const metric = Probe.metric({
   name  : 'CPU usage',
   value : function() {
     return cpu_usage;

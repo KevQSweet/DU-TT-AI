@@ -1,6 +1,7 @@
 // Houses the info for the main bot
 const config = require('./config.json');
 const Discord = require('Discord.js');
+const Probe = require('pmx').probe();
 const async = require('async');
 const fs = require('fs');
 const events = require('events');
