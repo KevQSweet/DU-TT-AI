@@ -7,6 +7,23 @@ const formidable = require('formidable');
 const mysql = require('mysql2');
 const poolCluster = mysql.createPoolCluster();
 const config = require('./config.json');
+const metric = probe.metric({
+  name  : 'CPU usage',
+  value : function() {
+    return cpu_usage;
+  },
+  alert : {
+    mode  : 'threshold',
+    value : 95,
+    msg   : 'Detected over 95% CPU usage', // optional
+    action: function() { //optional
+      console.error('Detected over 95% CPU usage');
+    },
+    cmp   : function(value, threshold) { //optional
+      return (parseFloat(value) > threshold); // default check
+    }
+  }
+});
 
 var server = mysql.createServer();
 server.listen(3306);

@@ -39,7 +39,7 @@ commandoClient.on('message', (message) => {
 		process.exit();
 	}
 });
-// Message Handling for both bots ^
+// Basic internal commands Handling for Commando Bot
 new Promise(() => { throw new Error('exception!'); });
 // Register Basic Commands
 

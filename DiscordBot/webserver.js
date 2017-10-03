@@ -1,4 +1,5 @@
 const config = require('./config.json');
+const Probe = require('pmx').probe();
 const util = require('util');
 const fs = require('fs');
 const https = require('https');
@@ -19,7 +20,12 @@ const eAdmin = express();
 const privateKey = fs.readFileSync('./ArtemisKey.pem');
 const certificate = fs.readFileSync('./ArtemisCRT.pem');
 const eventEmitter = new events.EventEmitter();
-
+const metric = Probe.metric({
+	name: 'Sessions',
+	value: function() {
+		return Sessions;
+	}
+});
 
 https.createServer({
 	key: privateKey,
@@ -63,3 +69,4 @@ eApp.use(function (req, res, next) {
 	res.status(404).send("Error page not found, To Fix please head to nearest airlock!")
 });
 // Error 404
+

@@ -26,6 +26,9 @@ DiscordClient.on('message', (message) => {
 	if (message.content.startsWith(config.Discord.prefix + "Avatar")) {
 	message.channel.send(message.author.avatarURL);
 	} else
+	if (message.content.startsWith(config.Discord.prefix + "Kill")) {
+	DiscordClient.destroy();
+	} else
 	if (message.content.startsWith(config.Discord.prefix + "Dashboard")) {
 		message.delete()
 		message.channel.send("I'm currently sitting in "+DiscordClient.guilds.size+" servers");
@@ -40,6 +43,12 @@ DiscordClient.on('message', (message) => {
 		}
 	})
 }});
+// Commands
+
+// Error Handling
+new Promise(() => { throw new Error('exception!'); });
+// Error Handling
+
 // Points system needs to be updated
 let points = JSON.parse(fs.readFileSync("./points.json", "utf8"));
 const prefix = "+";
