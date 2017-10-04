@@ -20,10 +20,6 @@ module.exports = {
 		script: 'webserver.js'
 	},
 	{
-		name: 'ToasTec Database Server',
-		script: 'SSQL.js'
-	},
-	{
 		name: 'Cluster Slave Discord Bot',
 		script: 'AAC.js'
 	}
