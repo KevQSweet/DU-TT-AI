@@ -7,10 +7,26 @@ const fs = require('fs');
 const events = require('events');
 const path = require('path');
 const bodyParser = require('body-parser');
+const mysql = require('mysql');
 const Token = config.Discord.Token;
 const formidable = require('formidable');
 const utl = require('util');
 const DiscordClient = new Discord.Client();
+const connection = mysql.createConnection({
+	host: config.NodeSQL.host,
+	user: config.NodeSQL.user,
+	port: config.NodeSQL.port,
+	password: config.NodeSQL.password,
+	database: config.NodeSQL.database
+});
+
+connection.connect(function(err) {
+	if (err) {
+		console.error('error connecting: ' + err.stack);
+		return;
+	}
+	console.log('connected as id ' + connection.threadId);
+});
 
 DiscordClient.on('ready', () => {
 	DiscordClient.user.setPresence({ game: {name: 'Dual Universe', type: 1 } });
@@ -28,6 +44,9 @@ DiscordClient.on('message', (message) => {
 	message.channel.send(message.author.avatarURL);
 	} else
 	if (message.content.startsWith(config.Discord.prefix + "Kill")) {
+	connection.end(function(err) {
+		console.log(err);
+	});
 	DiscordClient.destroy();
 	} else
 	if (message.content.startsWith(config.Discord.prefix + "Dashboard")) {
