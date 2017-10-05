@@ -10,6 +10,14 @@ const bodyParser = require('body-parser');
 const Token = config.Discord.Token;
 const formidable = require('formidable');
 const utl = require('util');
+const mysql = require('mysql');
+const connection = mysql.createConnection({
+	host: config.NodeSQL.host,
+	user: config.NodeSQL.user,
+	port: config.NodeSQL.port,
+	password: config.NodeSQL.password,
+	database: config.NodeSQL.database
+});
 const commandoClient = new Commando.Client({
 	owner: '247176974164819968',
 	commandPrefix: '[]',

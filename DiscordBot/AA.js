@@ -10,15 +10,18 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const Token = config.Discord.Token;
 const formidable = require('formidable');
+const msgEmbedToRich = require("discordjs-embed-converter").msgEmbedToRich;
 const utl = require('util');
 const DiscordClient = new Discord.Client();
 const connection = mysql.createConnection({
 	host: config.NodeSQL.host,
-	user: config.NodeSQL.user,
+	user: 'Dev',
 	port: config.NodeSQL.port,
-	password: config.NodeSQL.password,
-	database: config.NodeSQL.database
+	database: 'master_discord_org'
 });
+
+
+//connection.query('SELECT * FROM master_discord_org.corps');
 
 connection.connect(function(err) {
 	if (err) {
@@ -27,6 +30,10 @@ connection.connect(function(err) {
 	}
 	console.log('connected as id ' + connection.threadId);
 });
+
+// Delay
+const talkedRecently = new Set();
+// Delay
 
 DiscordClient.on('ready', () => {
 	DiscordClient.user.setPresence({ game: {name: 'Dual Universe', type: 1 } });
@@ -39,18 +46,28 @@ DiscordClient.on('ready', () => {
 DiscordClient.on('message', (message) => {
 	if (!message.content.startsWith(config.Discord.prefix)) return;
 	if (!message.content.startsWith(config.Discord.prefix) || message.author.bot) return;
+	if (talkedRecently.has(message.author.id)) return;
 	
 	if (message.content.startsWith(config.Discord.prefix + "Avatar")) {
 	message.channel.send(message.author.avatarURL);
 	} else
 	if (message.content.startsWith(config.Discord.prefix + "Query")) {
-		
-	}
+		const data = message.content; 
+		connection.query('SELECT * FROM master_discord_org.corps;', function (results, err, fields) {
+			message.channel.send({embed: {
+				color: "3447003",
+				title: "Test",
+				description: "test",
+				fields: [{
+					name: "Test",
+					value: results,
+				}],
+			}
+		})
+	})
+	} else
 	if (message.content.startsWith(config.Discord.prefix + "Kill")) {
-	connection.end(function(err) {
-		console.log(err);
-	});
-	DiscordClient.destroy();
+		DiscordClient.destroy();
 	} else
 	if (message.content.startsWith(config.Discord.prefix + "Dashboard")) {
 		message.delete()
@@ -103,7 +120,20 @@ DiscordClient.on("message", message => {
 
 });
 // Points system needs to be updated
+const hook = new Discord.WebhookClient(config.NodeSQL.ID,config.NodeSQL.Token);
+hook.send('connection');
+
+//const SQLS = connection.query({
+//	sql: 'SELECT Name
+//FROM `master_discord_org`.`corps` WHERE =?';", function (err, result, message) {
+//	
+//}});
 
 // Login with Token
 DiscordClient.login(config.Discord.Token);
 // Login with Token
+
+DiscordClient.on("guildMemberAdd", (member) => {
+  console.log(`New User "${member.user.username}" has joined "${member.guild.name}"` );
+  member.guild.defaultChannel.send(`"${member.user.username}" has joined this server`);
+});

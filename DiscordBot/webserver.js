@@ -6,12 +6,9 @@ const DHook = new Discord.WebhookClient(config.Endpoint.HookID,config.Endpoint.H
 const util = require('util');
 const weak = require('weak');
 const dnode = require('dnode')();
-const $ = require('jquery')(window);
-const dt = require('datatables.net')();
-const buttons = require('datatables.net-buttons')();
+const nQuery = require('nquery');
 const fs = require('fs');
 const https = require('https');
-const html2 = require('html'); 
 const path = require('path');
 const events = require('events');
 const tls = require('tls');
@@ -32,6 +29,13 @@ const eAdmin = express();
 const privateKey = fs.readFileSync('./ArtemisKey.pem');
 const certificate = fs.readFileSync('./ArtemisCRT.pem');
 const eventEmitter = new events.EventEmitter();
+const connection = mysql.createConnection({
+	host: config.NodeSQL.host,
+	user: config.NodeSQL.user,
+	port: config.NodeSQL.port,
+	password: config.NodeSQL.password,
+	database: config.NodeSQL.database
+});
 
 https.createServer({
 	key: privateKey,
@@ -59,6 +63,9 @@ eApp.get('/Dual', function(req,res,html) {
 	res.sendFile(path.join(__dirname + '/www/Dual'));
 });
 
+eApp.get('/Artemis', function(req,res,html) {
+	res.sendFile(path.join(__dirname + '/www/Artemis/index.html'));
+});
 // end of paths
 
 // Mount Dash 2
@@ -122,6 +129,8 @@ eApp.use(function (req, res, next) {
 	res.status(404).send("Error page not found, To Fix please head to nearest airlock!")
 });
 // Error 404
+
+// Trying to inject into Discord embed to a webhook
 const EndpointEmbed = new Discord.RichEmbed()
 	.setTitle("Endpoint Server Status")
 	.setColor(3710706)
@@ -129,3 +138,4 @@ const EndpointEmbed = new Discord.RichEmbed()
 	.addField("Current Status", "Server is Online")
 	.setFooter("Endpoint Server Status")
 DHook.send({EndpointEmbed});
+// Doesn't seem to send
