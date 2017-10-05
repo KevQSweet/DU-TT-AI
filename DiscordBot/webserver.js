@@ -4,8 +4,14 @@ const Discord = require('discord.js');
 const DClient = new Discord.Client();
 const DHook = new Discord.WebhookClient(config.Endpoint.HookID,config.Endpoint.HookToken);
 const util = require('util');
+const weak = require('weak');
+const dnode = require('dnode')();
+const $ = require('jquery')(window);
+const dt = require('datatables.net')();
+const buttons = require('datatables.net-buttons')();
 const fs = require('fs');
 const https = require('https');
+const html2 = require('html'); 
 const path = require('path');
 const events = require('events');
 const tls = require('tls');
@@ -20,6 +26,7 @@ const authExpress = module.exports = express();
 const bodyParser = require('body-parser');
 const dns = require('dns');
 const eApp = express();
+const express2 = Express.createServer();
 const ePort = 4848;
 const eAdmin = express();
 const privateKey = fs.readFileSync('./ArtemisKey.pem');
@@ -48,12 +55,55 @@ eApp.get('/Audio', function(req,res,html) {
 	res.sendFile(path.join(__dirname + '/www/Audio'));
 });
 
+eApp.get('/Dual', function(req,res,html) {
+	res.sendFile(path.join(__dirname + '/www/Dual'));
+});
+
 // end of paths
 
 // Mount Dash 2
 eApp.use(php.cgi('./htdocs'));
 eApp.use(express.static('./htdocs'));
 // Mount Dash 2
+eApp.use(express.static('./Scope'));
+
+$.getJSON('http://anyorigin.com/go?url=https%3A//community.dualthegame.com/organizations/list_ajax&callback=?', function(data){
+	$('#output').html2(data.contents);
+});
+
+//
+
+$('#all_organizations').each(function() {
+  var t = $(this);
+  t.dataTable({
+    order: [[4, 'desc']],
+    serverSide: true,
+    lengthChange: false,
+    ajax: {
+      url: t.data('https://community.dualthegame.com/organizations/list_ajax'),
+      type: 'GET'
+    },
+    columns: [
+      {data: 'logo', orderable: false},
+      {data: 'name'},
+      {data: 'created'},
+      {data: 'description', orderable: false},
+      {data: 'member_count'},
+      {data: 'legate_count'},
+      {data: 'button', orderable: false}
+    ]
+  })
+});
+
+//
+
+nQuery.use(eApp);
+express2.use(nQuery.middleware)
+express2.use(express.static(__dirname + '/www/Artemis'))
+express2.listen(4949);
+
+dnode.use(nQuery.middleware);
+dnode.listen(4747);
 
 // Mount Bind 
 

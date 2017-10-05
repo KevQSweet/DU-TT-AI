@@ -43,6 +43,9 @@ DiscordClient.on('message', (message) => {
 	if (message.content.startsWith(config.Discord.prefix + "Avatar")) {
 	message.channel.send(message.author.avatarURL);
 	} else
+	if (message.content.startsWith(config.Discord.prefix + "Query")) {
+		
+	}
 	if (message.content.startsWith(config.Discord.prefix + "Kill")) {
 	connection.end(function(err) {
 		console.log(err);

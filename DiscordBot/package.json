@@ -14,8 +14,13 @@
     "bluebird": "^3.5.0",
     "body-parser": "^1.18.2",
     "common-tags": "^1.4.0",
+    "datatables": "^1.10.13",
+    "datatables.net": "^1.10.16",
+    "datatables.net-buttons": "^1.4.2",
+    "datatables.net-dt": "^1.10.16",
     "discord.js": "^11.2.1",
     "discord.js-commando": "^0.9.0",
+    "dnode": "^1.2.2",
     "express": "^4.15.5",
     "express-html": "^1.0.1",
     "express-oauth-server": "^2.0.0",
@@ -28,7 +33,8 @@
     "mysql": "^2.14.1",
     "mysql2": "^1.4.2",
     "passport-http": "^0.3.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "weak": "^1.0.1"
   },
   "devDependencies": {
     "express-php": "0.0.1",
