@@ -1,5 +1,5 @@
-var Users = require('./users.json');// users
-var Orgs = require('./orgs.json'); // organizations
+var Users = require('../Internal/DualUniverseData/DU/users.json');// users
+var Orgs = require('../Internal/DualUniverseData/DU/orgs.json'); // organizations
 var Discord = require('discord.js'); // Discord bot stuff
 var bot = new Discord.Client(); // the client 
 var config = require('../Config/config.json'); // Retrive main config files
