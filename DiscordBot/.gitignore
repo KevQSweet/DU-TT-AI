@@ -48,6 +48,17 @@ jspm_packages/
 htdocs/
 www/Data/
 www/Dual/
+Config/
+Certificates/
+oldReference/
+Internal/DualUniverseData/DU/
+Internal/Artemis.js/
+Internal/SSQL.js/
+Internal/
+External/
+webServer/www/Dual/
+webServer/www/UI/
+webServer/www/users/
 
 # Typescript v1 declaration files
 typings/

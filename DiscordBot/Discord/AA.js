@@ -1,24 +1,24 @@
 // Houses the info for the main bot
-const config = require('./config.json');
-const Discord = require('Discord.js');
-const Probe = require('pmx').probe();
-const async = require('async');
-const fs = require('fs');
-const events = require('events');
-const path = require('path');
+const config = require('../Config/config.json'); // Master Config File
+const Discord = require('Discord.js'); // Load Discord.Js Library
+const Probe = require('pmx').probe(); // Connect to keymetrics
+const async = require('async'); // Async tasks
+const fs = require('fs'); // File System
+const events = require('events'); // Events listener
+const path = require('path'); 
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
-const Token = config.Discord.Token;
+const mysql = require('mysql'); // Connect and login to the Database Server
+const Token = config.Discord.Token; // Get Discord Login Token
 const formidable = require('formidable');
 const msgEmbedToRich = require("discordjs-embed-converter").msgEmbedToRich;
 const utl = require('util');
-const DiscordClient = new Discord.Client();
+const DiscordClient = new Discord.Client(); // Create new Discord Client
 const connection = mysql.createConnection({
 	host: config.NodeSQL.host,
 	user: 'Dev',
 	port: config.NodeSQL.port,
 	database: 'master_discord_org'
-});
+}); // Test Database Local
 
 
 //connection.query('SELECT * FROM master_discord_org.corps');
@@ -29,19 +29,19 @@ connection.connect(function(err) {
 		return;
 	}
 	console.log('connected as id ' + connection.threadId);
-});
+}); // Indentify if connection was succesful
 
-// Delay
+// Delay commands to limit use
 const talkedRecently = new Set();
-// Delay
+// Delay commands to limit use
 
 DiscordClient.on('ready', () => {
 	DiscordClient.user.setPresence({ game: {name: 'Dual Universe', type: 1 } });
-});
+}); // Set the game status to Dual Universe
 
 DiscordClient.on('ready', () => {
   console.log(`Logged in as ${DiscordClient.user.tag}!`);
-});
+}); // Log and notify when bot has connected to Discord.
 
 DiscordClient.on('message', (message) => {
 	if (!message.content.startsWith(config.Discord.prefix)) return;
@@ -82,15 +82,17 @@ DiscordClient.on('message', (message) => {
 			}],
 		}
 	})
-}});
+}}); // Listen for chat messages that match the prefix and value and then respond with the array
+
+
 // Commands
 
 // Error Handling
 new Promise(() => { throw new Error('exception!'); });
 // Error Handling
 
-// Points system needs to be updated
-let points = JSON.parse(fs.readFileSync("./points.json", "utf8"));
+// This allows users to gain levels the commands are +levels but this can be improved, Levels stored in ./pointsSystem
+let points = JSON.parse(fs.readFileSync("./pointsSystem/points.json", "utf8"));
 const prefix = "+";
 
 DiscordClient.on("message", message => {
@@ -104,7 +106,7 @@ DiscordClient.on("message", message => {
   let userData = points[message.author.id];
   userData.points++;
 
-  let curLevel = Math.floor(0.1 * Math.sqrt(userData.points));
+  let curLevel = Math.floor(0.5 * Math.sqrt(userData.points)); // Upgraded percentage from 0.1 to 0.5
   if (curLevel > userData.level) {
     // Level up!
     userData.level = curLevel;
@@ -114,12 +116,13 @@ DiscordClient.on("message", message => {
   if (message.content.startsWith(prefix + "level")) {
     message.reply(`You are currently level ${userData.level}, with ${userData.points} points.`);
   }
-  fs.writeFile("./points.json", JSON.stringify(points), (err) => {
+  fs.writeFile("./pointsSystem/points.json", JSON.stringify(points), (err) => {
     if (err) console.error(err)
-  });
+  }); // Make sure it writes back to /pointsSystem/points.json file.
 
 });
-// Points system needs to be updated
+
+// This is to send a webhook event to #node-output in Discord
 const hook = new Discord.WebhookClient(config.NodeSQL.ID,config.NodeSQL.Token);
 hook.send('connection');
 
@@ -129,11 +132,13 @@ hook.send('connection');
 //	
 //}});
 
-// Login with Token
+// This tells the client to login using the provided information
 DiscordClient.login(config.Discord.Token);
 // Login with Token
 
+// This greats new users joining the server!
 DiscordClient.on("guildMemberAdd", (member) => {
   console.log(`New User "${member.user.username}" has joined "${member.guild.name}"` );
   member.guild.defaultChannel.send(`"${member.user.username}" has joined this server`);
 });
+//

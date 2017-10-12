@@ -1,16 +1,16 @@
-const config = require('./config.json');
-const Commando = require('discord.js-commando');
+const config = require('../Config/config.json'); // Get Master config file
+const Commando = require('discord.js-commando'); // Load the Discord.Js Commando Library
 const oneLine = require('common-tags').oneLine;
 const async = require('async');
-const Probe = require('pmx').probe();
-const fs = require('fs');
+const Probe = require('pmx').probe(); // Login to Keymetrics
+const fs = require('fs'); // File - System
 const events = require('events');
 const path = require('path');
 const bodyParser = require('body-parser');
-const Token = config.Discord.Token;
+const Token = config.Discord.Token; // Grab token
 const formidable = require('formidable');
 const utl = require('util');
-const mysql = require('mysql');
+const mysql = require('mysql'); // Connect to Database
 const connection = mysql.createConnection({
 	host: config.NodeSQL.host,
 	user: config.NodeSQL.user,
@@ -22,7 +22,7 @@ const commandoClient = new Commando.Client({
 	owner: '247176974164819968',
 	commandPrefix: '[]',
 	disableEveryone: true,
-});
+}); // Register basic administration
 
 // Set Playing or Streaming game and presence
 commandoClient.on('ready', () => {
@@ -49,6 +49,7 @@ commandoClient.on('message', (message) => {
 	}
 });
 // Basic internal commands Handling for Commando Bot
+new Promise(() => { throw new Error('exception!'); });
 new Promise(() => { throw new Error('exception!'); });
 // Register Basic Commands
 
