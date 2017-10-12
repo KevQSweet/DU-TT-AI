@@ -1,3 +1,4 @@
+const config = require('./Config/config.json');
 module.exports = {
   /**
    * Application configuration section
@@ -7,7 +8,7 @@ module.exports = {
     // Applications to start
     {
       name      : 'Artemis A.I. Discord Bot',
-      script    : 'AA.js',
+      script    : './Discord/AA.js',
       env: {
         COMMON_VARIABLE: 'true'
       },
@@ -17,11 +18,11 @@ module.exports = {
     },
 	{
 		name: 'Web Server / OAuth Endpoints',
-		script: 'webserver.js'
+		script: './webServer/webserver.js'
 	},
 	{
 		name: 'Cluster Slave Discord Bot',
-		script: 'AAC.js'
+		script: './Discord/AAC.js'
 	}
   ],
 
