@@ -133,7 +133,7 @@ DiscordClient.on("message", message => {
 //}});
 
 // This tells the client to login using the provided information
-DiscordClient.login(config.Discord.Token);
+DiscordClient.login(config.Discord.Artemis.Tokens.Token);
 // Login with Token
 
 // This greats new users joining the server!

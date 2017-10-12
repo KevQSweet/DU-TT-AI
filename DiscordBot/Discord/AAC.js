@@ -7,7 +7,6 @@ const fs = require('fs'); // File - System
 const events = require('events');
 const path = require('path');
 const bodyParser = require('body-parser');
-const Token = config.Discord.Token; // Grab token
 const formidable = require('formidable');
 const utl = require('util');
 const mysql = require('mysql'); // Connect to Database
@@ -114,5 +113,5 @@ commandoClient.registry
 
 
 // Log the bot into Discord
-commandoClient.login(config.Commando.Token);
+commandoClient.login(config.Slave.Commando.Tokens.Token);
 // Log the bot into Discord
