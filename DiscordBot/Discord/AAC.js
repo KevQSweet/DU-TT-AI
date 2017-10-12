@@ -12,11 +12,11 @@ const formidable = require('formidable');
 const utl = require('util');
 const mysql = require('mysql'); // Connect to Database
 const connection = mysql.createConnection({
-	host: config.NodeSQL.host,
-	user: config.NodeSQL.user,
-	port: config.NodeSQL.port,
-	password: config.NodeSQL.password,
-	database: config.NodeSQL.database
+	host: config.SQL.NodeSQL.host,
+	user: config.SQL.NodeSQL.user,
+	port: config.SQL.NodeSQL.port,
+	password: config.SQL.NodeSQL.password,
+	database: config.SQL.NodeSQL.database
 });
 const commandoClient = new Commando.Client({
 	owner: '247176974164819968',
@@ -39,9 +39,9 @@ commandoClient.on('ready', () => {
 
 // Register Basic Commands
 commandoClient.on('message', (message) => {
-	if (!message.content.startsWith(config.Commando.prefix)) return;
-	if (!message.content.startsWith(config.Commando.prefix) || message.author.bot) return;
-	if (message.content.startsWith(config.Commando.prefix + "Kill")) {
+	if (!message.content.startsWith(config.Slave.Commando.Options.prefix)) return;
+	if (!message.content.startsWith(config.Slave.Commando.Options.prefix) || message.author.bot) return;
+	if (message.content.startsWith(config.Slave.Commando.Options.prefix + "Kill")) {
 		message.channel.send("No!!!!")
 		commandoClient.destroy()
 		console.log('Commando Discord Killed')

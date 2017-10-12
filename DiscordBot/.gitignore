@@ -59,6 +59,7 @@ External/
 webServer/www/Dual/
 webServer/www/UI/
 webServer/www/users/
+Hive/
 
 # Typescript v1 declaration files
 typings/

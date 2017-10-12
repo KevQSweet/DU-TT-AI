@@ -26,8 +26,8 @@ const eApp = express(); // eApp = ExpressApp so we are creating a new express ap
 const express2 = Express.createServer(); // To be removed
 const ePort = 4848; // Specifying port to listen for traffic on
 const eAdmin = express(); // Administration control
-const privateKey = fs.readFileSync('./ArtemisKey.pem'); // Getting SSL Certificates for Webserver
-const certificate = fs.readFileSync('./ArtemisCRT.pem'); // Getting SSL Certificates for Webserver
+const privateKey = fs.readFileSync('../Certificates/ArtemisKey.pem'); // Getting SSL Certificates for Webserver
+const certificate = fs.readFileSync('../Certificates/ArtemisCRT.pem'); // Getting SSL Certificates for Webserver
 const eventEmitter = new events.EventEmitter();
 const connection = mysql.createConnection({
 	host: config.NodeSQL.host,

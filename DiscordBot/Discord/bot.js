@@ -62,4 +62,4 @@ bot.on("message", (message) => { // when the bot sees a message
 	}
 });
 
-bot.login(config.Discord.Token);// oh, can't forget to log in
+bot.login(config.Discord.Artemis.Tokens.Token);// oh, can't forget to log in

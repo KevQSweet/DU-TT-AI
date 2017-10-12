@@ -44,14 +44,14 @@ DiscordClient.on('ready', () => {
 }); // Log and notify when bot has connected to Discord.
 
 DiscordClient.on('message', (message) => {
-	if (!message.content.startsWith(config.Discord.prefix)) return;
-	if (!message.content.startsWith(config.Discord.prefix) || message.author.bot) return;
+	if (!message.content.startsWith(config.Discord.Artemis.Options.prefix)) return;
+	if (!message.content.startsWith(config.Discord.Artemis.Options.prefix) || message.author.bot) return;
 	if (talkedRecently.has(message.author.id)) return;
 	
-	if (message.content.startsWith(config.Discord.prefix + "Avatar")) {
+	if (message.content.startsWith(config.Discord.Artemis.Options.prefix + "Avatar")) {
 	message.channel.send(message.author.avatarURL);
 	} else
-	if (message.content.startsWith(config.Discord.prefix + "Query")) {
+	if (message.content.startsWith(config.Discord.Artemis.Options.prefix + "Query")) {
 		const data = message.content; 
 		connection.query('SELECT * FROM master_discord_org.corps;', function (results, err, fields) {
 			message.channel.send({embed: {
@@ -66,10 +66,10 @@ DiscordClient.on('message', (message) => {
 		})
 	})
 	} else
-	if (message.content.startsWith(config.Discord.prefix + "Kill")) {
+	if (message.content.startsWith(config.Discord.Artemis.Options.prefix + "Kill")) {
 		DiscordClient.destroy();
 	} else
-	if (message.content.startsWith(config.Discord.prefix + "Dashboard")) {
+	if (message.content.startsWith(config.Discord.Artemis.Options.prefix + "Dashboard")) {
 		message.delete()
 		message.channel.send("I'm currently sitting in "+DiscordClient.guilds.size+" servers");
 		message.channel.send({embed: {
@@ -123,8 +123,8 @@ DiscordClient.on("message", message => {
 });
 
 // This is to send a webhook event to #node-output in Discord
-const hook = new Discord.WebhookClient(config.NodeSQL.ID,config.NodeSQL.Token);
-hook.send('connection');
+//const hook = new Discord.WebhookClient(config.NodeSQL.ID,config.//NodeSQL.Token);
+//hook.send('connection');
 
 //const SQLS = connection.query({
 //	sql: 'SELECT Name
