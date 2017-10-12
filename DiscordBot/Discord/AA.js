@@ -14,9 +14,9 @@ const msgEmbedToRich = require("discordjs-embed-converter").msgEmbedToRich;
 const utl = require('util');
 const DiscordClient = new Discord.Client(); // Create new Discord Client
 const connection = mysql.createConnection({
-	host: config.NodeSQL.host,
+	host: config.SQL.NodeSQL.host,
 	user: 'Dev',
-	port: config.NodeSQL.port,
+	port: config.SQL.NodeSQL.port,
 	database: 'master_discord_org'
 }); // Test Database Local
 
