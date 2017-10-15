@@ -11,6 +11,7 @@ const fs = require('fs'); // File System
 const https = require('https'); // Grab the library for making SSL based Servers
 const path = require('path');
 const events = require('events');
+const mysql = require('mysql');
 const tls = require('tls'); // Grab library for Transport Layer Security
 const express = require('express'); // Grab Library for Express, Express is a webserver
 const html = require('express-html'); // Grab Library addon for Express to enable Express to read .html files
@@ -23,18 +24,17 @@ const authExpress = module.exports = express(); // Export Auth for other scripts
 const bodyParser = require('body-parser');
 const dns = require('dns'); // Lookup Domain name servers (Domain names)
 const eApp = express(); // eApp = ExpressApp so we are creating a new express app with the const of eApp
-const express2 = Express.createServer(); // To be removed
 const ePort = 4848; // Specifying port to listen for traffic on
 const eAdmin = express(); // Administration control
 const privateKey = fs.readFileSync('../Certificates/ArtemisKey.pem'); // Getting SSL Certificates for Webserver
 const certificate = fs.readFileSync('../Certificates/ArtemisCRT.pem'); // Getting SSL Certificates for Webserver
 const eventEmitter = new events.EventEmitter();
 const connection = mysql.createConnection({
-	host: config.NodeSQL.host,
-	user: config.NodeSQL.user,
-	port: config.NodeSQL.port,
-	password: config.NodeSQL.password,
-	database: config.NodeSQL.database
+	host: config.SQL.NodeSQL.host,
+	user: config.SQL.NodeSQL.user,
+	port: config.SQL.NodeSQL.port,
+	password: config.SQL.NodeSQL.password,
+	database: config.SQL.NodeSQL.database
 }); // Connect to Database server
 
 https.createServer({
@@ -76,43 +76,9 @@ eApp.use(express.static('./htdocs'));
 eApp.use(express.static('./Scope'));
 // ignore this
 
-$.getJSON('http://anyorigin.com/go?url=https%3A//community.dualthegame.com/organizations/list_ajax&callback=?', function(data){
-	$('#output').html2(data.contents);
-});
-
-//
-
-$('#all_organizations').each(function() {
-  var t = $(this);
-  t.dataTable({
-    order: [[4, 'desc']],
-    serverSide: true,
-    lengthChange: false,
-    ajax: {
-      url: t.data('https://community.dualthegame.com/organizations/list_ajax'),
-      type: 'GET'
-    },
-    columns: [
-      {data: 'logo', orderable: false},
-      {data: 'name'},
-      {data: 'created'},
-      {data: 'description', orderable: false},
-      {data: 'member_count'},
-      {data: 'legate_count'},
-      {data: 'button', orderable: false}
-    ]
-  })
-});
-
 //
 // Get data then output to html page
-nQuery.use(eApp);
-express2.use(nQuery.middleware)
-express2.use(express.static(__dirname + '/www/Artemis'))
-express2.listen(4949);
 
-dnode.use(nQuery.middleware);
-dnode.listen(4747);
 
 // Mount Bind 
 
@@ -133,11 +99,11 @@ eApp.use(function (req, res, next) {
 // Error 404
 
 // Trying to inject into Discord embed to a webhook
-const EndpointEmbed = new Discord.RichEmbed()
-	.setTitle("Endpoint Server Status")
-	.setColor(3710706)
-	.setDescription("Endpoint Online")
-	.addField("Current Status", "Server is Online")
-	.setFooter("Endpoint Server Status")
-DHook.send({EndpointEmbed});
+//const EndpointEmbed = new Discord.RichEmbed()
+//	.setTitle("Endpoint Server Status")
+//	.setColor(3710706)
+//	.setDescription("Endpoint Online")
+//	.addField("Current Status", "Server is Online")
+//	.setFooter("Endpoint Server Status")
+//DHook.send({EndpointEmbed});
 // Doesn't seem to send
